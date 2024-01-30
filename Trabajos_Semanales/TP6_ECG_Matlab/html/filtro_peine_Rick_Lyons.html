@@ -1,0 +1,601 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>filtro_peine_Rick_Lyons</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-01-30">
+<meta name="DC.source" content="filtro_peine_Rick_Lyons.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Cargo ECG</a>
+</li>
+<li>
+<a href="#2">Acondicionar Se&ntilde;al: Submuestreo Se&ntilde;al para utilizar Filtro Rick Lyons</a>
+</li>
+<li>
+<a href="#3">Filtro Peine Mr. Rick Lyons</a>
+</li>
+<li>
+<a href="#4">Aplicar el filtro</a>
+</li>
+<li>
+<a href="#5">Graficar la se&ntilde;al original y la filtrada en el mismo gr&aacute;fico</a>
+</li>
+<li>
+<a href="#6">ECG en Reposo</a>
+</li>
+<li>
+<a href="#7">ECG en Ejercicio</a>
+</li>
+<li>
+<a href="#8">ECG Maximo Esfuerzo</a>
+</li>
+<li>
+<a href="#9">DEnsidad Espectral de Potencia: Periodograma</a>
+</li>
+<li>
+<a href="#10">Densidad Espectral de Potencia: Metodo de Welch</a>
+</li>
+<li>
+<a href="#11">Densidad Espectral de Power: ECG estado en Reposo</a>
+</li>
+<li>
+<a href="#12">Densidad Espectral de Power: ECG estado en inicio Ejercicio/Movimiento</a>
+</li>
+<li>
+<a href="#13">Densidad Espectral de Power: Max Power</a>
+</li>
+<li>
+<a href="#14">Conclusion: se obtiene gran atenuacion en 0 y en 50Hz que es donde se encontraban mayores interferencias</a>
+</li>
+<li>
+<a href="#15">Se redujo la cantidad de muestras de fs=1000Hz a fs=200Hz lo que significa que es posible Medir con un Circuito menos Exigido</a>
+</li>
+<li>
+<a href="#16">Analisis de Derivadas para conocer Sistole y Diastole</a>
+</li>
+<li>
+<a href="#17">Primera Derivada</a>
+</li>
+<li>
+<a href="#18">Segunda Derivada</a>
+</li>
+<li>
+<a href="#19">Se&ntilde;al ECG(t): Reposo</a>
+</li>
+<li>
+<a href="#20">Se&ntilde;al ECG(t): Ejercicio/Movimiento</a>
+</li>
+<li>
+<a href="#21">Se&ntilde;al ECG(t): Max Power</a>
+</li>
+<li>
+<a href="#22">Conclusion: podemos ver el comienzo de la Sistole y Diastole con los Maximos de la derivada primera</a>
+</li>
+<li>
+<a href="#23">Ideas:</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Cargo ECG</h2>
+<pre class="codeinput">load(<span class="string">"ECG.mat"</span>) <span class="comment">%fs = 1000 %Hz</span>
+</pre>
+<h2 id="2">Acondicionar Se&ntilde;al: Submuestreo Se&ntilde;al para utilizar Filtro Rick Lyons</h2>
+<p>si tomamos cada 5 muestras, la se&ntilde;al submuestreada queda con Fs = 200Hz</p>
+<pre class="codeinput">ecg_lead_submestreada = ecg_lead(1:5:end); <span class="comment">% Recortamos la cantidad de muestras de la se&ntilde;al</span>
+</pre>
+<h2 id="3">Filtro Peine Mr. Rick Lyons</h2>
+<pre class="codeinput">Fs = 200; D = 16;
+B = [-1/D^2, zeros(1,4*D-5), 1, 0, 0, 0, (2/D^2-2), 0, 0, 0, 1, zeros(1,4*D-5), -1/D^2];
+A = [1, 0, 0, 0, -2, 0, 0, 0, 1];
+freqz(B, A, 1024, <span class="string">'whole'</span>, Fs);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_01.png" alt=""> <h2 id="4">Aplicar el filtro</h2>
+<pre class="codeinput">ecg_filtered = filter(B, A, ecg_lead_submestreada);
+</pre>
+<h2 id="5">Graficar la se&ntilde;al original y la filtrada en el mismo gr&aacute;fico</h2>
+<pre class="codeinput">figure;
+plot(ecg_lead_submestreada, <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(ecg_filtered, <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color rojo</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG original y filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original'</span>, <span class="string">'Filtrada'</span>);
+<span class="comment">% Conclusion ECG(t): hay un desplazamiento de la se&ntilde;al por la Ganancia en</span>
+<span class="comment">% la Banda de Paso y la acumulacion de Fase</span>
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_02.png" alt=""> <h2 id="6">ECG en Reposo</h2>
+<p>Seccion en Reposo</p>
+<pre class="codeinput">ecg_reposo = ecg_lead_submestreada(500:1000);
+ecg_reposo_filtrada = ecg_filtered(500:1000);
+
+<span class="comment">% Graficar la se&ntilde;al original y la filtrada en el mismo gr&aacute;fico</span>
+figure;
+plot(ecg_reposo, <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(ecg_reposo_filtrada, <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color rojo</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG en Reposo y Filtrada en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original en Reposo'</span>, <span class="string">'Filtrada'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_03.png" alt=""> <h2 id="7">ECG en Ejercicio</h2>
+<p>Seccion en Reposo</p>
+<pre class="codeinput">ecg_ejercicio = ecg_lead_submestreada(126400:128000);
+ecg_ejercicio_filtrada = ecg_filtered(126400:128000);
+
+<span class="comment">% Graficar la se&ntilde;al original y la filtrada en el mismo gr&aacute;fico</span>
+figure;
+plot(ecg_ejercicio, <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(ecg_ejercicio_filtrada, <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color rojo</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG original y filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original'</span>, <span class="string">'Filtrada'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_04.png" alt=""> <img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_05.png" alt=""> <h2 id="8">ECG Maximo Esfuerzo</h2>
+<p>Seccion en Reposo</p>
+<pre class="codeinput">ecg_pico = ecg_lead_submestreada(200000:209000);
+ecg_pico_filtrada = ecg_filtered(200000:209000);
+
+<span class="comment">% Graficar la se&ntilde;al original y la filtrada en el mismo gr&aacute;fico</span>
+figure;
+plot(ecg_pico, <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(ecg_pico_filtrada, <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color rojo</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG original y filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original'</span>, <span class="string">'Filtrada'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_06.png" alt=""> <h2 id="9">DEnsidad Espectral de Potencia: Periodograma</h2>
+<p>Calcular la PSD de ecg_pico</p>
+<pre class="codeinput">[psd_pico,freq_pico] = periodogram(ecg_pico,[],[],Fs);
+
+<span class="comment">% Graficar la PSD de ecg_pico</span>
+figure;
+plot(freq_pico,pow2db(psd_pico));
+title(<span class="string">'PSD de ecg_pico'</span>);
+xlabel(<span class="string">'Frecuencia (Hz)'</span>);
+ylabel(<span class="string">'Potencia/Frecuencia (dB/Hz)'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_07.png" alt=""> <h2 id="10">Densidad Espectral de Potencia: Metodo de Welch</h2>
+<h2 id="11">Densidad Espectral de Power: ECG estado en Reposo</h2>
+<p>Calcular la PSD de ecg_pico usando Welch</p>
+<pre class="codeinput">[psd_reposo,freq_reposo] = pwelch(ecg_reposo,[],[],[],Fs);
+[psd_reposo_filtrada,freq_reposo_filtrada] = pwelch(ecg_reposo_filtrada,[],[],[],Fs);
+
+<span class="comment">% Graficar la PSD de ecg_pico</span>
+figure;
+plot(freq_reposo,pow2db(psd_reposo), <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(freq_reposo_filtrada,pow2db(psd_reposo_filtrada), <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color celeste</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG original y filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original'</span>, <span class="string">'Filtrada'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_08.png" alt=""> <h2 id="12">Densidad Espectral de Power: ECG estado en inicio Ejercicio/Movimiento</h2>
+<p>Calcular la PSD de ecg_pico usando Welch</p>
+<pre class="codeinput">[psd_ejercicio,freq_ejercicio] = pwelch(ecg_ejercicio,[],[],[],Fs);
+[psd_ejercicio_filtrada,freq_ejercicio_filtrada] = pwelch(ecg_ejercicio_filtrada,[],[],[],Fs);
+
+<span class="comment">% Graficar la PSD de ecg_pico</span>
+figure;
+plot(freq_ejercicio,pow2db(psd_ejercicio), <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(freq_ejercicio_filtrada,pow2db(psd_ejercicio_filtrada), <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color celeste</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG original y filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original'</span>, <span class="string">'Filtrada'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_09.png" alt=""> <h2 id="13">Densidad Espectral de Power: Max Power</h2>
+<pre class="codeinput">
+<span class="comment">% Calcular la PSD de ecg_pico usando Welch</span>
+[psd_pico,freq_pico] = pwelch(ecg_pico,[],[],[],Fs);
+[psd_pico_filtrada,freq_pico_filtrada] = pwelch(ecg_pico_filtrada,[],[],[],Fs);
+
+<span class="comment">% Graficar la PSD de ecg_pico</span>
+figure;
+plot(freq_pico,pow2db(psd_pico), <span class="string">'b'</span>); <span class="comment">% Se&ntilde;al original en color azul</span>
+hold <span class="string">on</span>; <span class="comment">% Mantener el gr&aacute;fico actual</span>
+plot(freq_pico_filtrada,pow2db(psd_pico_filtrada), <span class="string">'c'</span>); <span class="comment">% Se&ntilde;al filtrada en color celeste</span>
+hold <span class="string">off</span>; <span class="comment">% Liberar el gr&aacute;fico</span>
+title(<span class="string">'Se&ntilde;al ECG original y filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+legend(<span class="string">'Original'</span>, <span class="string">'Filtrada'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_10.png" alt=""> <h2 id="14">Conclusion: se obtiene gran atenuacion en 0 y en 50Hz que es donde se encontraban mayores interferencias</h2>
+<h2 id="15">Se redujo la cantidad de muestras de fs=1000Hz a fs=200Hz lo que significa que es posible Medir con un Circuito menos Exigido</h2>
+<h2 id="16">Analisis de Derivadas para conocer Sistole y Diastole</h2>
+<h2 id="17">Primera Derivada</h2>
+<pre class="codeinput">ecg_reposo_filtrada_primera_derivada = diff(ecg_reposo_filtrada);
+ecg_ejercicio_filtrada_primera_derivada = diff(ecg_ejercicio_filtrada);
+ecg_pico_filtrada_primera_derivada = diff(ecg_pico_filtrada);
+</pre>
+<h2 id="18">Segunda Derivada</h2>
+<pre class="codeinput">ecg_reposo_filtrada_segunda_derivada = diff(ecg_reposo_filtrada, 2);
+ecg_ejercicio_filtrada_segunda_derivada = diff(ecg_ejercicio_filtrada, 2);
+ecg_pico_filtrada_segunda_derivada = diff(ecg_pico_filtrada, 2);
+</pre>
+<h2 id="19">Se&ntilde;al ECG(t): Reposo</h2>
+<pre class="codeinput">figure;
+subplot(3,1,1);
+plot(ecg_reposo_filtrada);
+title(<span class="string">'ECG en Reposo Filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(3,1,2);
+plot(ecg_reposo_filtrada_primera_derivada);
+title(<span class="string">'Primera Derivada de ECG en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(3,1,3);
+plot(ecg_reposo_filtrada_segunda_derivada);
+title(<span class="string">'Segunda Derivada de ECG en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_11.png" alt=""> <h2 id="20">Se&ntilde;al ECG(t): Ejercicio/Movimiento</h2>
+<pre class="codeinput">figure;
+subplot(3,1,1);
+plot(ecg_ejercicio_filtrada);
+title(<span class="string">'ECG en Reposo Filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(3,1,2);
+plot(ecg_ejercicio_filtrada_primera_derivada);
+title(<span class="string">'Primera Derivada de ECG en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(3,1,3);
+plot(ecg_ejercicio_filtrada_segunda_derivada);
+title(<span class="string">'Segunda Derivada de ECG en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_12.png" alt=""> <h2 id="21">Se&ntilde;al ECG(t): Max Power</h2>
+<pre class="codeinput">figure;
+subplot(3,1,1);
+plot(ecg_pico_filtrada(1:1000));
+title(<span class="string">'ECG en Reposo Filtrada'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(3,1,2);
+plot(ecg_pico_filtrada_primera_derivada(1:1000));
+title(<span class="string">'Primera Derivada de ECG en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+subplot(3,1,3);
+plot(ecg_pico_filtrada_segunda_derivada(1:1000));
+title(<span class="string">'Segunda Derivada de ECG en Reposo'</span>);
+xlabel(<span class="string">'Muestras'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+</pre>
+<img vspace="5" hspace="5" src="filtro_peine_Rick_Lyons_13.png" alt=""> <h2 id="22">Conclusion: podemos ver el comienzo de la Sistole y Diastole con los Maximos de la derivada primera</h2>
+<h2 id="23">Ideas:</h2>
+<p>.filtrar se&ntilde;al de ECG para analisar ruido de baja frecuencia y alta frecuencia, de esta manera poder conocer el grado de los filtros analogicos que se agregarian antes del ADC</p>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Cargo ECG
+load("ECG.mat") %fs = 1000 %Hz
+
+%% Acondicionar Señal: Submuestreo Señal para utilizar Filtro Rick Lyons 
+% si tomamos cada 5 muestras, la señal submuestreada queda con Fs = 200Hz
+ecg_lead_submestreada = ecg_lead(1:5:end); % Recortamos la cantidad de muestras de la señal
+
+%% Filtro Peine Mr. Rick Lyons
+
+Fs = 200; D = 16;
+B = [-1/D^2, zeros(1,4*D-5), 1, 0, 0, 0, (2/D^2-2), 0, 0, 0, 1, zeros(1,4*D-5), -1/D^2];
+A = [1, 0, 0, 0, -2, 0, 0, 0, 1];
+freqz(B, A, 1024, 'whole', Fs);
+
+%% Aplicar el filtro
+ecg_filtered = filter(B, A, ecg_lead_submestreada);
+
+%% Graficar la señal original y la filtrada en el mismo gráfico
+figure;
+plot(ecg_lead_submestreada, 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(ecg_filtered, 'c'); % Señal filtrada en color rojo
+hold off; % Liberar el gráfico
+title('Señal ECG original y filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original', 'Filtrada');
+% Conclusion ECG(t): hay un desplazamiento de la señal por la Ganancia en
+% la Banda de Paso y la acumulacion de Fase
+
+%% ECG en Reposo
+% Seccion en Reposo
+ecg_reposo = ecg_lead_submestreada(500:1000);
+ecg_reposo_filtrada = ecg_filtered(500:1000);
+
+% Graficar la señal original y la filtrada en el mismo gráfico
+figure;
+plot(ecg_reposo, 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(ecg_reposo_filtrada, 'c'); % Señal filtrada en color rojo
+hold off; % Liberar el gráfico
+title('Señal ECG en Reposo y Filtrada en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original en Reposo', 'Filtrada');
+
+%% ECG en Ejercicio
+% Seccion en Reposo
+ecg_ejercicio = ecg_lead_submestreada(126400:128000);
+ecg_ejercicio_filtrada = ecg_filtered(126400:128000);
+
+% Graficar la señal original y la filtrada en el mismo gráfico
+figure;
+plot(ecg_ejercicio, 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(ecg_ejercicio_filtrada, 'c'); % Señal filtrada en color rojo
+hold off; % Liberar el gráfico
+title('Señal ECG original y filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original', 'Filtrada');
+
+%% ECG Maximo Esfuerzo
+% Seccion en Reposo
+ecg_pico = ecg_lead_submestreada(200000:209000);
+ecg_pico_filtrada = ecg_filtered(200000:209000);
+
+% Graficar la señal original y la filtrada en el mismo gráfico
+figure;
+plot(ecg_pico, 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(ecg_pico_filtrada, 'c'); % Señal filtrada en color rojo
+hold off; % Liberar el gráfico
+title('Señal ECG original y filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original', 'Filtrada');
+
+%% DEnsidad Espectral de Potencia: Periodograma
+% Calcular la PSD de ecg_pico
+[psd_pico,freq_pico] = periodogram(ecg_pico,[],[],Fs);
+
+% Graficar la PSD de ecg_pico
+figure;
+plot(freq_pico,pow2db(psd_pico));
+title('PSD de ecg_pico');
+xlabel('Frecuencia (Hz)');
+ylabel('Potencia/Frecuencia (dB/Hz)');
+
+%% Densidad Espectral de Potencia: Metodo de Welch
+
+%% Densidad Espectral de Power: ECG estado en Reposo
+% Calcular la PSD de ecg_pico usando Welch
+[psd_reposo,freq_reposo] = pwelch(ecg_reposo,[],[],[],Fs);
+[psd_reposo_filtrada,freq_reposo_filtrada] = pwelch(ecg_reposo_filtrada,[],[],[],Fs);
+
+% Graficar la PSD de ecg_pico
+figure;
+plot(freq_reposo,pow2db(psd_reposo), 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(freq_reposo_filtrada,pow2db(psd_reposo_filtrada), 'c'); % Señal filtrada en color celeste
+hold off; % Liberar el gráfico
+title('Señal ECG original y filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original', 'Filtrada');
+
+%% Densidad Espectral de Power: ECG estado en inicio Ejercicio/Movimiento
+% Calcular la PSD de ecg_pico usando Welch
+[psd_ejercicio,freq_ejercicio] = pwelch(ecg_ejercicio,[],[],[],Fs);
+[psd_ejercicio_filtrada,freq_ejercicio_filtrada] = pwelch(ecg_ejercicio_filtrada,[],[],[],Fs);
+
+% Graficar la PSD de ecg_pico
+figure;
+plot(freq_ejercicio,pow2db(psd_ejercicio), 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(freq_ejercicio_filtrada,pow2db(psd_ejercicio_filtrada), 'c'); % Señal filtrada en color celeste
+hold off; % Liberar el gráfico
+title('Señal ECG original y filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original', 'Filtrada');
+
+%% Densidad Espectral de Power: Max Power
+
+% Calcular la PSD de ecg_pico usando Welch
+[psd_pico,freq_pico] = pwelch(ecg_pico,[],[],[],Fs);
+[psd_pico_filtrada,freq_pico_filtrada] = pwelch(ecg_pico_filtrada,[],[],[],Fs);
+
+% Graficar la PSD de ecg_pico
+figure;
+plot(freq_pico,pow2db(psd_pico), 'b'); % Señal original en color azul
+hold on; % Mantener el gráfico actual
+plot(freq_pico_filtrada,pow2db(psd_pico_filtrada), 'c'); % Señal filtrada en color celeste
+hold off; % Liberar el gráfico
+title('Señal ECG original y filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+legend('Original', 'Filtrada');
+
+
+%% Conclusion: se obtiene gran atenuacion en 0 y en 50Hz que es donde se encontraban mayores interferencias
+%% Se redujo la cantidad de muestras de fs=1000Hz a fs=200Hz lo que significa que es posible Medir con un Circuito menos Exigido
+
+
+%% Analisis de Derivadas para conocer Sistole y Diastole
+%% Primera Derivada
+ecg_reposo_filtrada_primera_derivada = diff(ecg_reposo_filtrada);
+ecg_ejercicio_filtrada_primera_derivada = diff(ecg_ejercicio_filtrada);
+ecg_pico_filtrada_primera_derivada = diff(ecg_pico_filtrada);
+
+%% Segunda Derivada
+ecg_reposo_filtrada_segunda_derivada = diff(ecg_reposo_filtrada, 2);
+ecg_ejercicio_filtrada_segunda_derivada = diff(ecg_ejercicio_filtrada, 2);
+ecg_pico_filtrada_segunda_derivada = diff(ecg_pico_filtrada, 2);
+
+%% Señal ECG(t): Reposo
+figure;
+subplot(3,1,1);
+plot(ecg_reposo_filtrada);
+title('ECG en Reposo Filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+subplot(3,1,2);
+plot(ecg_reposo_filtrada_primera_derivada);
+title('Primera Derivada de ECG en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+subplot(3,1,3);
+plot(ecg_reposo_filtrada_segunda_derivada);
+title('Segunda Derivada de ECG en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+
+%% Señal ECG(t): Ejercicio/Movimiento
+figure;
+subplot(3,1,1);
+plot(ecg_ejercicio_filtrada);
+title('ECG en Reposo Filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+subplot(3,1,2);
+plot(ecg_ejercicio_filtrada_primera_derivada);
+title('Primera Derivada de ECG en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+subplot(3,1,3);
+plot(ecg_ejercicio_filtrada_segunda_derivada);
+title('Segunda Derivada de ECG en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+%% Señal ECG(t): Max Power
+figure;
+subplot(3,1,1);
+plot(ecg_pico_filtrada(1:1000));
+title('ECG en Reposo Filtrada');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+subplot(3,1,2);
+plot(ecg_pico_filtrada_primera_derivada(1:1000));
+title('Primera Derivada de ECG en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+subplot(3,1,3);
+plot(ecg_pico_filtrada_segunda_derivada(1:1000));
+title('Segunda Derivada de ECG en Reposo');
+xlabel('Muestras');
+ylabel('Amplitud');
+
+%% Conclusion: podemos ver el comienzo de la Sistole y Diastole con los Maximos de la derivada primera
+
+%% Ideas: 
+    % .filtrar señal de ECG para analisar ruido de baja frecuencia y alta
+    % frecuencia, de esta manera poder conocer el grado de los filtros
+    % analogicos que se agregarian antes del ADC
+##### SOURCE END #####
+-->
+</body>
+</html>
