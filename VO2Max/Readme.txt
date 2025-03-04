@@ -1,0 +1,1 @@
+Se utiliza un sensor de velocidad angular, se calcula el gradiente (derivada parcial de cada eje) para obtener la aceleracion angular. Se separa en segmentos "reposo", "lento" y "rapido" y se ve el ancho de banda de c/u
